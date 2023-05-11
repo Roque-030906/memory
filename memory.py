@@ -73,10 +73,10 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        # Centramos el dígito en el cuadro ajustando las coordenadas x e y
+        goto(x + 25, y + 10)  # 25 y 10 son valores ajustados para centrar el dígito
         color('black')
-        # Cambiamos el tipo de fuente a monoespaciada para que todos los caracteres tengan el mismo ancho
-        write(tiles[mark], font=('Courier', 30, 'normal'))
+        write(tiles[mark], font=('Courier', 30, 'normal'), align="center")
 
     # Muestra el contador en la pantalla
     up()
