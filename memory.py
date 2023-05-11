@@ -4,7 +4,16 @@ from turtle import *
 from freegames import path
 
 car = path('car.gif')
-tiles = list(range(32)) * 2
+keyboard_chars = ['`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', 
+                  '[', '{', ']', '}', '\\', '|', ';', ':', '\'', '\"', ',', '<', '.', '>', '/', '?',
+                  ' ', '\t', '\n',
+                  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
+                  'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+                  'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+# Asegurate de que la lista de caracteres tenga suficientes elementos para llenar los tiles
+assert len(keyboard_chars) >= 32, "La lista de caracteres debe tener al menos 32 elementos."
+tiles = keyboard_chars[:32] * 2
 state = {'mark': None, 'counter': 0}
 hide = [True] * 64
 
@@ -64,9 +73,10 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        goto(x +         2, y)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        # Cambiamos el tipo de fuente a monoespaciada para que todos los caracteres tengan el mismo ancho
+        write(tiles[mark], font=('Courier', 30, 'normal'))
 
     # Muestra el contador en la pantalla
     up()
