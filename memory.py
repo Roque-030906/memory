@@ -4,7 +4,16 @@ from turtle import *
 from freegames import path
 
 car = path('car.gif')
-tiles = list(range(32)) * 2
+keyboard_chars = ['`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', 
+                  '[', '{', ']', '}', '\\', '|', ';', ':', '\'', '\"', ',', '<', '.', '>', '/', '?',
+                  ' ', '\t', '\n',
+                  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
+                  'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+                  'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+# Asegurate de que la lista de caracteres tenga suficientes elementos para llenar los tiles
+assert len(keyboard_chars) >= 32, "La lista de caracteres debe tener al menos 32 elementos."
+tiles = keyboard_chars[:32] * 2
 state = {'mark': None, 'counter': 0}
 hide = [True] * 64
 
@@ -64,9 +73,10 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        # Posiciona el texto en el centro del cuadro
+        goto(x + 25, y + 15)  # 25 y 15 son la mitad de 50 y 30 respectivamente
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(tiles[mark], font=('Courier', 30, 'normal'), align="center")
 
     # Muestra el contador en la pantalla
     up()
@@ -74,9 +84,14 @@ def draw():
     color('black')
     write(f'Touches: {state["counter"]}', font=('Arial', 16, 'normal'))
 
+    # Verifica si todos los cuadros se han destapado
+    if not any(hide):  # Si no hay ningún cuadro tapado...
+        goto(0, 0)  # Posición central de la pantalla
+        color('green')
+        write('¡Felicidades, has ganado!', align='center', font=('Arial', 24, 'bold'))
+
     update()
     ontimer(draw, 100)
-
 
 shuffle(tiles)
 setup(420, 420, 370, 0)
