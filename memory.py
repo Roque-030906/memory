@@ -73,8 +73,8 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        # Centramos el dígito en el cuadro ajustando las coordenadas x e y
-        goto(x + 25, y + 10)  # 25 y 10 son valores ajustados para centrar el dígito
+        # Centramos el carácter en el cuadro ajustando las coordenadas x e y
+        goto(x + 25, y + 15)  # El ajuste puede variar dependiendo de la fuente y el tamaño que estés utilizando
         color('black')
         write(tiles[mark], font=('Courier', 30, 'normal'), align="center")
 
