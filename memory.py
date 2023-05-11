@@ -73,7 +73,7 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x +         2, y)
+        goto(x + 2, y)
         color('black')
         # Cambiamos el tipo de fuente a monoespaciada para que todos los caracteres tengan el mismo ancho
         write(tiles[mark], font=('Courier', 30, 'normal'))
@@ -84,9 +84,14 @@ def draw():
     color('black')
     write(f'Touches: {state["counter"]}', font=('Arial', 16, 'normal'))
 
+    # Verifica si todos los cuadros se han destapado
+    if not any(hide):  # Si no hay ningún cuadro tapado...
+        goto(0, 0)  # Posición central de la pantalla
+        color('green')
+        write('¡Felicidades, has ganado!', align='center', font=('Arial', 24, 'bold'))
+
     update()
     ontimer(draw, 100)
-
 
 shuffle(tiles)
 setup(420, 420, 370, 0)
@@ -96,4 +101,3 @@ tracer(False)
 onscreenclick(tap)
 draw()
 done()
-,,.
